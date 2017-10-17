@@ -27,7 +27,7 @@ type Server struct {
 	Gametype   string `json:"gametype"`
 }
 
-// https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter
+// filter: https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter
 func GetServerList(key string, limit uint, filter string) ([]Server, error) {
 	const URL = ENDPOINT + "/IGameServersService/GetServerList/v1/"
 	ps := url.Values{

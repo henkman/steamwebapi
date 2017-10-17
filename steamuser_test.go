@@ -7,14 +7,20 @@ import (
 	. "github.com/henkman/steamwebapi"
 )
 
-func TestGetServerList(t *testing.T) {
+func TestGetFriendList(t *testing.T) {
 	key, err := getKey()
 	if err != nil {
 		t.Error(err)
 		t.Fail()
 		return
 	}
-	ss, err := GetServerList(key, 10, `\gamedir\RS2\name_match\*40-1*`)
+	steamid, err := getSteamId()
+	if err != nil {
+		t.Error(err)
+		t.Fail()
+		return
+	}
+	ss, err := GetFriendList(key, steamid)
 	if err != nil {
 		t.Error(err)
 		t.Fail()
