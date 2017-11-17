@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type Friend struct {
@@ -19,7 +20,10 @@ func GetFriendList(key, steamid string) ([]Friend, error) {
 		"key":     []string{key},
 		"steamid": []string{steamid},
 	}
-	res, err := http.Get(URL + "?" + ps.Encode())
+	cli := http.Client{
+		Timeout: time.Second * 10,
+	}
+	res, err := cli.Get(URL + "?" + ps.Encode())
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +70,10 @@ func GetPlayerSummaries(key string, steamids []string) ([]PlayerSummary, error) 
 		"key":      []string{key},
 		"steamids": []string{strings.Join(steamids, ",")},
 	}
-	res, err := http.Get(URL + "?" + ps.Encode())
+	cli := http.Client{
+		Timeout: time.Second * 10,
+	}
+	res, err := cli.Get(URL + "?" + ps.Encode())
 	if err != nil {
 		return nil, err
 	}

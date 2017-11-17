@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 type Server struct {
@@ -35,7 +36,10 @@ func GetServerList(key string, limit uint, filter string) ([]Server, error) {
 		"limit":  []string{fmt.Sprint(limit)},
 		"key":    []string{key},
 	}
-	res, err := http.Get(URL + "?" + ps.Encode())
+	cli := http.Client{
+		Timeout: time.Second * 10,
+	}
+	res, err := cli.Get(URL + "?" + ps.Encode())
 	if err != nil {
 		return nil, err
 	}
