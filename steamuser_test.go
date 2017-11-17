@@ -44,8 +44,7 @@ func TestGetPlayerSummaries(t *testing.T) {
 		t.Fail()
 		return
 	}
-	ss, err := GetPlayerSummaries(key, []string{"76561198009948498",
-		"76561198013516771", steamid})
+	ss, err := GetPlayerSummaries(key, []string{steamid})
 	if err != nil {
 		t.Error(err)
 		t.Fail()
