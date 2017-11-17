@@ -2,7 +2,6 @@ package steamwebapi
 
 import (
 	"encoding/json"
-	"net/http"
 	"net/url"
 	"strings"
 	"time"
@@ -20,10 +19,7 @@ func GetFriendList(key, steamid string) ([]Friend, error) {
 		"key":     []string{key},
 		"steamid": []string{steamid},
 	}
-	cli := http.Client{
-		Timeout: time.Second * 10,
-	}
-	res, err := cli.Get(URL + "?" + ps.Encode())
+	res, err := httpGetWithTimeout(URL+"?"+ps.Encode(), time.Second*10)
 	if err != nil {
 		return nil, err
 	}
@@ -70,10 +66,7 @@ func GetPlayerSummaries(key string, steamids []string) ([]PlayerSummary, error) 
 		"key":      []string{key},
 		"steamids": []string{strings.Join(steamids, ",")},
 	}
-	cli := http.Client{
-		Timeout: time.Second * 10,
-	}
-	res, err := cli.Get(URL + "?" + ps.Encode())
+	res, err := httpGetWithTimeout(URL+"?"+ps.Encode(), time.Second*10)
 	if err != nil {
 		return nil, err
 	}

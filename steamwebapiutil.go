@@ -2,7 +2,6 @@ package steamwebapi
 
 import (
 	"encoding/json"
-	"net/http"
 	"time"
 )
 
@@ -13,10 +12,8 @@ type ServerInfo struct {
 
 func GetServerInfo() (ServerInfo, error) {
 	var si ServerInfo
-	cli := http.Client{
-		Timeout: time.Second * 10,
-	}
-	res, err := cli.Get(ENDPOINT + "/ISteamWebAPIUtil/GetServerInfo/v1/")
+	res, err := httpGetWithTimeout(
+		ENDPOINT+"/ISteamWebAPIUtil/GetServerInfo/v1/", time.Second*10)
 	if err != nil {
 		return si, err
 	}
@@ -45,10 +42,7 @@ type Interface struct {
 
 func GetSupportedAPIList(key string) ([]Interface, error) {
 	const URL = ENDPOINT + "/ISteamWebAPIUtil/GetSupportedAPIList/v1/"
-	cli := http.Client{
-		Timeout: time.Second * 10,
-	}
-	res, err := cli.Get(URL + "?key=" + key)
+	res, err := httpGetWithTimeout(URL+"?key="+key, time.Second*10)
 	if err != nil {
 		return nil, err
 	}
