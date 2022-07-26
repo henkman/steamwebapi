@@ -41,27 +41,30 @@ type PlayerSummary struct {
 	Communityvisibilitystate int    `json:"communityvisibilitystate"`
 	Profilestate             int    `json:"profilestate"`
 	Personaname              string `json:"personaname"`
-	Lastlogoff               int    `json:"lastlogoff"`
+	Commentpermission        int    `json:"commentpermission,omitempty"`
 	Profileurl               string `json:"profileurl"`
 	Avatar                   string `json:"avatar"`
 	Avatarmedium             string `json:"avatarmedium"`
 	Avatarfull               string `json:"avatarfull"`
+	Avatarhash               string `json:"avatarhash"`
+	Lastlogoff               int    `json:"lastlogoff"`
 	Personastate             int    `json:"personastate"`
 	Realname                 string `json:"realname,omitempty"`
 	Primaryclanid            string `json:"primaryclanid,omitempty"`
 	Timecreated              int    `json:"timecreated,omitempty"`
 	Personastateflags        int    `json:"personastateflags,omitempty"`
+	Gameserverip             string `json:"gameserverip,omitempty"`
+	Gameserversteamid        string `json:"gameserversteamid,omitempty"`
 	Gameextrainfo            string `json:"gameextrainfo,omitempty"`
 	Gameid                   string `json:"gameid,omitempty"`
 	Lobbysteamid             string `json:"lobbysteamid,omitempty"`
 	Loccountrycode           string `json:"loccountrycode,omitempty"`
 	Locstatecode             string `json:"locstatecode,omitempty"`
 	Loccityid                int    `json:"loccityid,omitempty"`
-	Commentpermission        int    `json:"commentpermission,omitempty"`
 }
 
 func GetPlayerSummaries(key string, steamids []string) ([]PlayerSummary, error) {
-	const URL = ENDPOINT + "/ISteamUser/GetPlayerSummaries/v2/"
+	const URL = ENDPOINT + "/ISteamUser/GetPlayerSummaries/v0002/"
 	ps := url.Values{
 		"key":      []string{key},
 		"steamids": []string{strings.Join(steamids, ",")},
